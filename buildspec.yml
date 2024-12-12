@@ -1,6 +1,17 @@
 version: 0.2
 
 phases:
+  pre_build:
+    commands:
+      - echo "Environment variables:"
+      - printenv
+      - echo "Checking Python and pip versions:"
+      - python --version
+      - pip --version
+      - echo "Checking Django version:"
+      - python -m django --version
+      - echo "Running makemigrations..."
+      - python manage.py makemigrations
   install:
     runtime-versions:
       python: 3.9  # Replace with your desired Python version
