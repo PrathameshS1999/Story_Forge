@@ -1,18 +1,24 @@
+version: 0.2
+
 phases:
   install:
     runtime-versions:
       python: 3.9
     commands:
-      - pip install --upgrade pip
-
-      - pip install pylint
+      - echo Installing dependencies...
+      - pip install -r requirements.txt
   pre_build:
     commands:
-      - echo "Building the project..."
-      - python --version
-      - pylint $CODEBUILD_SRC_DIR/*.py || true
-      - pylint $CODEBUILD_SRC_DIR/Story_Forge/*.py || true
-      - pylint --disable=R0903,E1101 $CODEBUILD_SRC_DIR/Story_Forge/*.py || true
+      - echo Pre-build phase...
+  build:
+    commands:
+      - echo Build phase...
+      - python manage.py makemigrations
+      - python manage.py migrate
+  post_build:
+    commands:
+      - echo Post-build phase...
+
 artifacts:
   files:
     - '**/*'
