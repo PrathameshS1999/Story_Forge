@@ -4,7 +4,7 @@ phases:
       python: 3.9
     commands:
       - pip install --upgrade pip
-      - pip install -r requirements.txt
+
       - pip install pylint
   pre_build:
     commands:
