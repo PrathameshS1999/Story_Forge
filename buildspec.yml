@@ -18,8 +18,8 @@ phases:
       - echo "Building the project..."
       - python --version
       - pylint $CODEBUILD_SRC_DIR/*.py || true
-      - pylint $CODEBUILD_SRC_DIR/Story_Forge/*.py || true
-      - pylint --disable=R0903,E1101 $CODEBUILD_SRC_DIR/Story_Forge/*.py || true
+      - pylint $CODEBUILD_SRC_DIR/Story_Forge/**/*.py || true
+      - pylint --disable=R0903,E1101 $CODEBUILD_SRC_DIR/Story_Forge/**/*.py || true
   build:
     commands:
       - echo "Starting SonarCloud analysis..."
