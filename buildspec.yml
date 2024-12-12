@@ -7,6 +7,11 @@ phases:
       - pip install Django
       - pip install --upgrade pip
       - pip install pylint
+      - echo "Installing required tools..."
+      - apt-get update && apt-get install -y wget unzip
+      - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
+      - unzip sonar-scanner-cli-4.8.0.2856-linux.zip -d /usr/local
+      - export PATH=$PATH:/usr/local/sonar-scanner-4.8.0.2856-linux/bin
   pre_build:
     commands:
       - echo "Building the project..."
