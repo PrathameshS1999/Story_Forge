@@ -4,10 +4,11 @@ phases:
     runtime-versions:
       python: 3.9
     commands:
-      - pip install Django
+      - echo "Installing dependencies..."
       - pip install --upgrade pip
+      - pip install -r requirements.txt
       - pip install pylint
-      - echo "Installing required tools..."
+      - echo "Installing SonarCloud scanner..."
       - apt-get update && apt-get install -y wget unzip
       - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
       - unzip sonar-scanner-cli-4.8.0.2856-linux.zip -d /usr/local
@@ -19,24 +20,15 @@ phases:
       - pylint $CODEBUILD_SRC_DIR/*.py || true
       - pylint $CODEBUILD_SRC_DIR/Story_Forge/*.py || true
       - pylint --disable=R0903,E1101 $CODEBUILD_SRC_DIR/Story_Forge/*.py || true
-      - echo "Installing required tools..."
-      - pip install --upgrade pip
-      - pip install sonar-scanner-cli  # Install SonarScanner
-  pre_build:
-    commands:
-      - echo "Installing dependencies..."
-  
   build:
     commands:
-      - echo "Running Django tests..."
-      - python manage.py test  # Run your Django tests
       - echo "Starting SonarCloud analysis..."
       - sonar-scanner \
-        -Dsonar.projectKey="prathameshs1999" \
-        -Dsonar.organization="prathameshs1999" \
-        -Dsonar.host.url="https://sonarcloud.io" \
-        -Dsonar.login="$SONAR_TOKEN" \
-        -Dsonar.python.version=3.8  # Specify Python version used
+          -Dsonar.projectKey="prathameshs1999" \
+          -Dsonar.organization="prathameshs1999" \
+          -Dsonar.host.url="https://sonarcloud.io" \
+          -Dsonar.login="$SONAR_TOKEN" \
+          -Dsonar.python.version=3.9
 artifacts:
   files:
     - '**/*'
