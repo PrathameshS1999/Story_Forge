@@ -3,44 +3,33 @@ version: 0.2
 phases:
   install:
     commands:
-      - echo "Installing required packages"
-      - pip install --upgrade pip
-      - pip install pylint
+      - echo "Installing dependencies..."
       - curl -sL https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip -o sonar-scanner.zip
       - unzip sonar-scanner.zip -d $HOME
       - export PATH=$HOME/sonar-scanner-4.8.0.2856-linux/bin:$PATH
-      - echo "SonarScanner installed"
-      
+      - sonar-scanner --version
+
   pre_build:
     commands:
-      - echo "Setting up environment"
+      - echo "Setting up environment variables..."
       - export SONAR_HOST_URL=https://sonarcloud.io
-      - echo "Environment setup complete"
 
   build:
     commands:
-      - echo "Running static analysis with PyLint"
-      - pylint **/*.py || true
-      - echo "Running SonarCloud analysis"
-      - |
-        sonar-scanner \
-        -Dsonar.projectKey=<PrathameshS1999_Story_Forge> \
-        -Dsonar.organization=<prathameshs1999> \
+      - echo "Running SonarCloud analysis..."
+      - sonar-scanner \
+        -Dsonar.projectKey=PrathameshS1999_Story_Forge \
+        -Dsonar.organization=prathameshs1999 \
         -Dsonar.sources=. \
         -Dsonar.python.version=3 \
         -Dsonar.host.url=$SONAR_HOST_URL \
-        -Dsonar.login=<4200bebb04e160bdedb7ac12255375ac742ad52f>
+        -Dsonar.login=4200bebb04e160bdedb7ac12255375ac742ad52f
 
   post_build:
     commands:
-      - echo "Static code analysis completed"
+      - echo "SonarCloud analysis complete."
 
 artifacts:
   files:
+    - buildspec.yml
     - sonar-report.json
-    - pylint.log
-  discard-paths: yes
-
-cache:
-  paths:
-    - $HOME/.sonar/cache
