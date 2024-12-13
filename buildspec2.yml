@@ -29,7 +29,7 @@ phases:
         -Dsonar.sources=. \
         -Dsonar.python.version=3 \
         -Dsonar.host.url=$SONAR_HOST_URL \
-        -Dsonar.login=<your_sonarcloud_token>
+        -Dsonar.login=<4200bebb04e160bdedb7ac12255375ac742ad52f>
 
   post_build:
     commands:
