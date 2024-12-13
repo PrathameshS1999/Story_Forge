@@ -24,7 +24,8 @@ phases:
       - echo "Running SonarCloud analysis"
       - |
         sonar-scanner \
-        -Dsonar.projectKey=<prathameshs1999> \
+        -Dsonar.projectKey=<PrathameshS1999_Story_Forge> \
+        -Dsonar.organization=<prathameshs1999> \
         -Dsonar.sources=. \
         -Dsonar.python.version=3 \
         -Dsonar.host.url=$SONAR_HOST_URL \
