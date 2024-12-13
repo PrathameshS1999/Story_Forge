@@ -22,8 +22,7 @@ phases:
         -Dsonar.organization=prathameshs1999 \
         -Dsonar.sources=. \
         -Dsonar.python.version=3 \
-        -Dsonar.host.url=$SONAR_HOST_URL \
-        -Dsonar.login=4200bebb04e160bdedb7ac12255375ac742ad52f # Use an environment variable for the token
+
 
   post_build:
     commands:
